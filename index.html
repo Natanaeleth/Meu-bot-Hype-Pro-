@@ -20,7 +20,8 @@
   --r:10px; --r2:6px;
   --shadow:0 4px 30px rgba(0,0,0,.5);
 }
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;overflow-x:hidden}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{min-height:100%;background:var(--bg);color:var(--text);font-family:var(--font);font-size:14px;overflow-x:hidden}
 button{cursor:pointer;font-family:inherit;border:none;outline:none}
 a{color:inherit;text-decoration:none}
 input,select,textarea{font-family:inherit;outline:none;border:none}
@@ -36,6 +37,70 @@ input,select,textarea{font-family:inherit;outline:none;border:none}
   cursor:pointer;transition:.2s;letter-spacing:.05em;white-space:nowrap;
 }
 .btn-disconnect:hover{background:rgba(255,61,87,.2);border-color:var(--red)}
+
+/* ── TRIAL SYSTEM ───────────────────────────────────────────── */
+.trial-badge{
+  padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;
+  letter-spacing:.06em;border:1px solid;font-family:var(--font-mono);cursor:default;transition:.3s;
+}
+.trial-badge.green{background:rgba(0,230,118,.1);color:var(--green);border-color:rgba(0,230,118,.3)}
+.trial-badge.yellow{background:rgba(255,202,40,.1);color:var(--yellow);border-color:rgba(255,202,40,.3)}
+.trial-badge.red{background:rgba(255,61,87,.1);color:var(--red);border-color:rgba(255,61,87,.3);animation:pulse 1.5s infinite}
+#trialExpireBanner{
+  display:none;position:fixed;top:0;left:0;right:0;z-index:500;
+  background:linear-gradient(90deg,rgba(255,61,87,.94),rgba(180,20,40,.94));
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--red);padding:10px 20px;
+  align-items:center;gap:12px;font-size:12px;
+}
+#trialExpireBanner.show{display:flex}
+.teb-text{flex:1;font-weight:600;color:#fff}
+.teb-btn{padding:6px 16px;background:#fff;color:var(--red);border-radius:20px;font-size:11px;font-weight:800;cursor:pointer;border:none;white-space:nowrap}
+.teb-close{color:rgba(255,255,255,.7);cursor:pointer;font-size:18px;padding:2px 6px;border:none;background:none}
+#trialExpiredOverlay{
+  display:none;position:fixed;inset:0;z-index:2000;
+  background:rgba(6,8,15,.93);backdrop-filter:blur(14px);
+  align-items:center;justify-content:center;
+}
+#trialExpiredOverlay.show{display:flex}
+.teo-box{background:var(--panel);border:1px solid var(--red);border-radius:16px;
+  padding:40px 44px;text-align:center;max-width:440px;
+  box-shadow:0 0 80px rgba(255,61,87,.18);}
+.teo-icon{font-size:52px;margin-bottom:16px}
+.teo-title{font-size:22px;font-weight:800;color:var(--red);margin-bottom:8px}
+.teo-sub{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:24px}
+.teo-btn{padding:14px 32px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#000;font-weight:800;border-radius:8px;font-size:13px;cursor:pointer;border:none;letter-spacing:.05em;transition:.2s}
+.teo-btn:hover{opacity:.9;transform:translateY(-1px)}
+.trial-token-section{border-top:1px solid var(--border);padding-top:18px;margin-top:6px}
+.token-input-wrap{position:relative;margin-bottom:8px}
+.token-input-wrap .cs-input{margin-bottom:0;padding-right:44px}
+.token-check-icon{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:14px}
+.btn-validate-token{width:100%;padding:10px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.25);border-radius:var(--r2);color:var(--accent);font-size:12px;font-weight:700;cursor:pointer;transition:.2s;margin-bottom:12px;letter-spacing:.04em}
+.btn-validate-token:hover{background:rgba(0,229,255,.18)}
+.trial-status-bar{padding:8px 12px;border-radius:var(--r2);font-size:11px;text-align:center;font-weight:600;display:none;margin-bottom:10px}
+.trial-status-bar.success{background:rgba(0,230,118,.1);border:1px solid rgba(0,230,118,.25);color:var(--green);display:block}
+.trial-status-bar.error{background:rgba(255,61,87,.1);border:1px solid rgba(255,61,87,.25);color:var(--red);display:block}
+.lic-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.lic-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.gen-token-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.gen-token-btn{padding:16px 8px;background:var(--card);border:1px solid var(--border2);border-radius:var(--r);color:var(--text);font-size:13px;font-weight:700;cursor:pointer;transition:.2s;text-align:center}
+.gen-token-btn:hover{border-color:var(--accent);background:rgba(0,229,255,.06);transform:translateY(-2px)}
+.gen-token-btn .gt-days{font-size:28px;font-weight:800;color:var(--accent);font-family:var(--font-mono);display:block;margin-bottom:4px}
+.gen-token-btn .gt-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.token-result-box{background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.2);border-radius:var(--r);padding:16px;margin-bottom:16px;display:none}
+.token-result-box.show{display:block}
+.trb-token{font-family:var(--font-mono);font-size:13px;color:var(--accent);padding:10px 14px;background:rgba(0,229,255,.06);border:1px dashed rgba(0,229,255,.3);border-radius:var(--r2);word-break:break-all;margin-bottom:10px;cursor:pointer;user-select:all;transition:.2s}
+.trb-token:hover{background:rgba(0,229,255,.14)}
+.trb-meta{font-size:11px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+.trb-copy-btn{padding:7px 18px;background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.25);border-radius:var(--r2);color:var(--accent);font-size:11px;font-weight:700;cursor:pointer;transition:.2s}
+.trb-copy-btn:hover{background:rgba(0,229,255,.2)}
+.token-list-table{width:100%;border-collapse:collapse}
+.token-list-table th{padding:8px 12px;text-align:left;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid var(--border);background:rgba(255,255,255,.02)}
+.token-list-table td{padding:9px 12px;font-size:12px;border-bottom:1px solid rgba(26,37,64,.4);font-family:var(--font-mono)}
+.token-list-table tr:last-child td{border:none}
+.tl-status-active{color:var(--green)}
+.tl-status-exp{color:var(--red)}
+.tl-status-pend{color:var(--yellow)}
+.lic-empty{text-align:center;padding:32px;color:var(--muted);font-size:12px}
 
 /* ── WALLET BUTTONS (connect screen) ────────────────────────── */
 .btn-wallet-main{
@@ -63,16 +128,27 @@ input,select,textarea{font-family:inherit;outline:none;border:none}
 /* ── CONNECT SCREEN ───────────────────────────────────────────── */
 #connectScreen{
   position:fixed;inset:0;background:var(--bg);
-  display:flex;align-items:center;justify-content:center;
+  display:flex;align-items:flex-start;justify-content:center;
   z-index:1000;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  padding:24px 16px 40px;
   background-image:
     radial-gradient(ellipse 80% 50% at 50% -10%,rgba(0,229,255,.12),transparent),
     radial-gradient(ellipse 60% 40% at 80% 110%,rgba(124,58,237,.1),transparent);
 }
+/* Center vertically only when content fits viewport, else scroll naturally */
+@media(min-height:780px){
+  #connectScreen{ align-items:center; padding:24px 16px; }
+}
 .cs-box{
-  width:100%;max-width:460px;padding:40px 36px;
+  width:100%;max-width:460px;
+  padding:32px 28px;
   background:var(--panel);border:1px solid var(--border2);border-radius:16px;
   box-shadow:0 0 80px rgba(0,229,255,.06),var(--shadow);
+  /* Ensure it's never taller than needed and doesn't get clipped */
+  flex-shrink:0;
 }
 .cs-logo{display:flex;align-items:center;gap:12px;margin-bottom:32px}
 .cs-logo svg{width:36px;height:36px}
@@ -126,9 +202,10 @@ input,select,textarea{font-family:inherit;outline:none;border:none}
 
 /* ── NAVBAR ───────────────────────────────────────────────────── */
 .navbar{
-  display:flex;align-items:center;gap:12px;padding:12px 20px;
+  display:flex;align-items:center;gap:8px;padding:10px 16px;
   background:rgba(11,15,28,.95);border-bottom:1px solid var(--border);
   backdrop-filter:blur(12px);position:sticky;top:0;z-index:100;
+  flex-wrap:wrap;
 }
 .nav-logo{font-family:var(--font-mono);font-size:16px;font-weight:700;color:var(--accent);
   display:flex;align-items:center;gap:8px;flex-shrink:0}
@@ -453,15 +530,115 @@ canvas{width:100%!important;height:160px!important}
   .grid-2{grid-template-columns:1fr}
   .stats-row{grid-template-columns:repeat(2,1fr)}
   .grid-3{grid-template-columns:1fr 1fr}
+  .gen-token-grid{grid-template-columns:repeat(3,1fr)}
 }
+
+/* ── MOBILE CORE FIXES (≤600px) ─────────────────────────────── */
 @media(max-width:600px){
+  /* Body / global */
   .stats-row{grid-template-columns:1fr 1fr}
-  .main{padding:10px}
+  .main{padding:8px}
   .grid-3{grid-template-columns:1fr}
+
+  /* Connect screen — compact for small phones */
+  .cs-box{padding:24px 18px;border-radius:12px}
+  .cs-logo{margin-bottom:20px}
+  .cs-logo h1{font-size:17px}
+  .net-tabs{flex-wrap:wrap;gap:6px}
+  .net-tab{min-width:80px;font-size:11px;padding:7px 6px}
+
+  /* Wallet buttons — stack nicely */
+  .bwm-name{font-size:12px}
+  .bwm-sub{font-size:9px}
+
+  /* Token field */
+  .trial-token-section{padding-top:14px}
+  #trialToken{font-size:10px}
+
+  /* Navbar — wrap tabs below logo/pills on very small screens */
+  .navbar{padding:8px 10px;gap:6px}
+  .nav-logo{font-size:13px}
+  .nav-tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;flex-wrap:nowrap;max-width:100%}
+  .nav-tabs::-webkit-scrollbar{display:none}
+  .nav-tab{padding:5px 10px;font-size:11px;white-space:nowrap}
+  .nav-pills{gap:5px;flex-wrap:wrap}
+  .pill{font-size:10px;padding:3px 8px}
+  .trial-badge{font-size:9px;padding:3px 8px}
+  .btn-disconnect{font-size:9px;padding:4px 10px}
+
+  /* Stats */
+  .stat-val{font-size:15px}
+  .stat-label{font-size:9px}
+
+  /* Bot control */
+  .strat-grid{grid-template-columns:1fr 1fr}
+  .mode-btns{grid-template-columns:1fr 1fr 1fr}
+  .slot-btns{gap:4px}
+  .slot-btn{font-size:11px;padding:6px 10px}
+
+  /* Positions table scroll */
+  .pos-table{min-width:700px}
+
+  /* History table scroll */
+  .history-table{min-width:700px}
+
+  /* Signals */
+  .sig-prices{grid-template-columns:repeat(3,1fr)}
+
+  /* Toast — full width on mobile */
+  #toasts{left:10px;right:10px;bottom:10px}
+  .toast{min-width:unset;max-width:100%}
+
+  /* Gen token grid */
+  .gen-token-grid{grid-template-columns:repeat(3,1fr);gap:6px}
+  .gen-token-btn{padding:12px 4px}
+  .gen-token-btn .gt-days{font-size:22px}
+
+  /* History summary */
+  .history-summary{grid-template-columns:repeat(3,1fr);gap:8px}
+
+  /* Licenses tab */
+  #tab-licenses > div{grid-template-columns:1fr !important}
+}
+
+/* ── EXTRA SMALL (≤400px) ────────────────────────────────────── */
+@media(max-width:400px){
+  .cs-box{padding:20px 14px}
+  .btn-enter{font-size:12px;padding:12px}
+  .cs-logo h1{font-size:15px}
+  .btn-wallet-main{padding:11px 12px;gap:10px}
+  .bwm-icon{width:32px;height:32px}
+  .gen-token-btn .gt-days{font-size:18px}
+  .stat-val{font-size:14px}
+  .history-summary{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
 <body>
+
+<!-- ══ TRIAL EXPIRE BANNER (top of page) ════════════════════════ -->
+<div id="trialExpireBanner">
+  <span class="teb-text" id="trialBannerText">⚠️ Seu trial expira em breve. Faça upgrade agora para continuar operando.</span>
+  <button class="teb-btn" onclick="showUpgradeContact()">🚀 Fazer Upgrade</button>
+  <button class="teb-close" onclick="this.closest('#trialExpireBanner').classList.remove('show')">✕</button>
+</div>
+
+<!-- ══ TRIAL EXPIRED OVERLAY ══════════════════════════════════ -->
+<div id="trialExpiredOverlay">
+  <div class="teo-box">
+    <div class="teo-icon">⏰</div>
+    <div class="teo-title">Trial Expirado</div>
+    <div class="teo-sub">
+      Seu período de teste chegou ao fim.<br>
+      Entre em contato para adquirir a <strong>Licença Vitalícia</strong> e continuar operando com o bot completo.
+    </div>
+    <button class="teo-btn" onclick="showUpgradeContact()">📩 Adquirir Licença</button>
+    <div style="margin-top:14px">
+      <button onclick="forceLogout()" style="background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline">Voltar ao Connect Screen</button>
+    </div>
+  </div>
+</div>
 
 <!-- ══ CONNECT SCREEN ════════════════════════════════════════════ -->
 <div id="connectScreen">
@@ -543,6 +720,16 @@ canvas{width:100%!important;height:160px!important}
     ⚠️ A private key <strong>nunca sai da sua máquina</strong>. Ela é usada apenas para assinar transações localmente via EIP-712.
     Sem ela, o bot opera em modo <strong>SCAN ONLY</strong>.
   </div>
+  <div class="trial-token-section">
+    <div class="ctrl-label">🔑 Token de Teste / Licença</div>
+    <div class="token-input-wrap">
+      <input class="cs-input" id="trialToken" placeholder="HYPER-TRIAL-XXXXXXXX-XXXX" autocomplete="off" spellcheck="false" oninput="onTokenInput(this)">
+      <span class="token-check-icon" id="tokenCheckIcon"></span>
+    </div>
+    <div class="trial-status-bar" id="trialStatusBar"></div>
+    <button class="btn-validate-token" onclick="validateTrialToken()">🔑 Validar Token</button>
+  </div>
+
   <button class="btn-enter" id="btnEnter" onclick="doConnect()">→ ENTRAR NO DASHBOARD</button>
 </div>
 </div>
@@ -581,9 +768,11 @@ canvas{width:100%!important;height:160px!important}
       <div class="nav-tab" onclick="showTab('positions')" id="tabBtn-positions">📂 Posições</div>
       <div class="nav-tab" onclick="showTab('history')" id="tabBtn-history">🗂️ Histórico</div>
       <div class="nav-tab" onclick="showTab('news')" id="tabBtn-news">📰 Notícias</div>
+      <div class="nav-tab" onclick="showTab('licenses')" id="tabBtn-licenses">🔑 Licenças</div>
     </div>
     <div class="nav-pills">
       <span class="pill pill-status" id="statusPill">ONLINE</span>
+      <span class="trial-badge green" id="trialNavBadge" style="display:none">🔑 Trial: --</span>
       <span class="pill pill-net" id="netPill" style="display:none">HL</span>
       <span class="pill pill-wallet" id="walletPill" style="display:none" onclick="copyAddr()">--</span>
       <button class="btn-disconnect" onclick="disconnect()" title="Desconectar e voltar à tela inicial">⏏ Sair</button>
@@ -848,6 +1037,117 @@ canvas{width:100%!important;height:160px!important}
         </div>
         <div id="newsList" class="news-list">
           <div class="no-signals" style="padding:40px">⏳ Carregando notícias...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: LICENSES ══════════════════════════════════════════ -->
+    <div class="tab-page" id="tab-licenses">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+
+        <!-- Generator Panel -->
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-title">🔑 Gerar Token de Teste</div>
+            <span class="panel-badge">Painel Admin</span>
+          </div>
+          <div class="panel-body">
+            <p style="font-size:12px;color:var(--muted);margin-bottom:16px;line-height:1.6">
+              Gere tokens de acesso temporário para clientes testarem o HyperBot Pro. 
+              Cada token é único com checksum criptográfico.
+            </p>
+
+            <div class="lic-section-title">Duração do Trial</div>
+            <div class="gen-token-grid">
+              <button class="gen-token-btn" onclick="generateToken(7)">
+                <span class="gt-days">7</span>
+                <span class="gt-label">Dias</span>
+              </button>
+              <button class="gen-token-btn" onclick="generateToken(10)">
+                <span class="gt-days">10</span>
+                <span class="gt-label">Dias</span>
+              </button>
+              <button class="gen-token-btn" onclick="generateToken(30)">
+                <span class="gt-days">30</span>
+                <span class="gt-label">Dias</span>
+              </button>
+            </div>
+
+            <!-- Token Result -->
+            <div class="token-result-box" id="tokenResultBox">
+              <div class="lic-section-title" style="margin-bottom:10px">Token Gerado</div>
+              <div class="trb-token" id="generatedTokenDisplay" onclick="copyGeneratedToken()" title="Clique para copiar">
+                HYPER-TRIAL-XXXXXXXX-XXXX
+              </div>
+              <div class="trb-meta" id="tokenMeta">
+                <span>📅 Expira: <strong id="tokenExpireDate">--</strong></span>
+                <span>⏱️ Dias: <strong id="tokenDays">--</strong></span>
+                <span>🔐 Status: <strong class="tl-status-active">Ativo</strong></span>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <button class="trb-copy-btn" onclick="copyGeneratedToken()">📋 Copiar Token</button>
+                <button class="trb-copy-btn" style="border-color:rgba(124,58,237,.3);color:var(--accent2)" onclick="shareToken()">📤 Compartilhar</button>
+              </div>
+            </div>
+
+            <!-- Current session info -->
+            <div class="lic-section-title" style="margin-top:16px">Sessão Atual</div>
+            <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:var(--r2);padding:14px" id="sessionTrialInfo">
+              <div style="font-size:12px;color:var(--muted);text-align:center">Sem trial ativo nesta sessão</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tokens List Panel -->
+        <div class="panel">
+          <div class="panel-hdr">
+            <div class="panel-title">📋 Tokens Gerados</div>
+            <div style="display:flex;gap:8px">
+              <span class="panel-badge" id="tokenCountBadge">0 tokens</span>
+              <button onclick="clearAllTokens()" style="font-size:10px;color:var(--red);background:rgba(255,61,87,.08);border:1px solid rgba(255,61,87,.25);border-radius:4px;padding:3px 10px">🗑️ Limpar</button>
+            </div>
+          </div>
+          <div class="panel-body" style="padding:0;overflow-x:auto">
+            <table class="token-list-table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th>Dias</th>
+                  <th>Expira</th>
+                  <th>Status</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+              <tbody id="tokenListBody">
+                <tr><td colspan="5" class="lic-empty">Nenhum token gerado ainda</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Backend endpoints reference -->
+      <div class="panel" style="margin-top:16px">
+        <div class="panel-hdr">
+          <div class="panel-title">🖥️ Endpoints Backend (server.py)</div>
+          <span class="panel-badge">Referência API</span>
+        </div>
+        <div class="panel-body">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:12px">
+            <div style="background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.15);border-radius:var(--r2);padding:12px">
+              <div style="color:var(--accent);font-family:var(--font-mono);margin-bottom:6px">POST /api/generate_trial</div>
+              <div style="color:var(--muted);line-height:1.6">Body: {days: 7|10|30}<br>Returns: {token, expires, days}</div>
+            </div>
+            <div style="background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.15);border-radius:var(--r2);padding:12px">
+              <div style="color:var(--accent);font-family:var(--font-mono);margin-bottom:6px">POST /api/validate_trial</div>
+              <div style="color:var(--muted);line-height:1.6">Body: {token: "HYPER-..."}<br>Returns: {valid, days_left, expires}</div>
+            </div>
+            <div style="background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.15);border-radius:var(--r2);padding:12px">
+              <div style="color:var(--accent);font-family:var(--font-mono);margin-bottom:6px">GET /api/active_trials</div>
+              <div style="color:var(--muted);line-height:1.6">Returns: {trials: [{token, days, expires, used}]}</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1726,8 +2026,503 @@ function toast(title,msg,type='info',ms=4000) {
 }
 
 // ══════════════════════════════════════════════════════════════════
-// PNL CHART AUTO-UPDATE
+// TRIAL SYSTEM — Token Generation & Validation
 // ══════════════════════════════════════════════════════════════════
+
+const TRIAL_KEY = 'hyperTrial_v2';
+const TRIAL_TOKENS_KEY = 'hyperTrialTokens_v2';
+
+// Generate cryptographically-styled token
+function generateTrialToken(days) {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const seg1 = Array.from({length:8},()=>chars[Math.floor(Math.random()*chars.length)]).join('');
+  const seg2 = Array.from({length:4},()=>chars[Math.floor(Math.random()*chars.length)]).join('');
+  const seg3 = Array.from({length:4},()=>chars[Math.floor(Math.random()*chars.length)]).join('');
+  // Simple checksum from days + timestamp last 4 digits
+  const ts = Date.now().toString().slice(-4);
+  const checksum = (days * parseInt(ts.slice(0,2)||'10') % 89 + 10).toString().padStart(2,'0');
+  return `HYPER-TRIAL-${seg1}-${seg2}${seg3}-${days}D${checksum}`;
+}
+
+function generateToken(days) {
+  const token = generateTrialToken(days);
+  const now = Date.now();
+  const expires = now + days * 86400000;
+  const expireDate = new Date(expires).toLocaleDateString('pt-BR', {day:'2-digit',month:'2-digit',year:'numeric'});
+
+  // Store token in localStorage list
+  const tokens = getStoredTokens();
+  tokens.unshift({ token, days, created: now, expires, status:'active', used:false });
+  localStorage.setItem(TRIAL_TOKENS_KEY, JSON.stringify(tokens.slice(0,100)));
+
+  // Show result box
+  $('generatedTokenDisplay').textContent = token;
+  $('tokenExpireDate').textContent = expireDate;
+  $('tokenDays').textContent = days;
+  $('tokenResultBox').classList.add('show');
+
+  renderTokenList();
+  toast(`✅ Token ${days} dias gerado!`, 'Clique no token para copiar', 'success', 4000);
+  addLog(`🔑 Token gerado: ${token} | ${days} dias | Expira: ${expireDate}`, 'success');
+}
+
+function getStoredTokens() {
+  try { return JSON.parse(localStorage.getItem(TRIAL_TOKENS_KEY) || '[]'); } catch { return []; }
+}
+
+function copyGeneratedToken() {
+  const tok = $('generatedTokenDisplay').textContent;
+  navigator.clipboard?.writeText(tok).then(()=>{
+    toast('Copiado!', tok, 'success', 2000);
+    $('generatedTokenDisplay').style.background = 'rgba(0,230,118,.15)';
+    setTimeout(()=> $('generatedTokenDisplay').style.background = '', 800);
+  });
+}
+
+function shareToken() {
+  const tok = $('generatedTokenDisplay').textContent;
+  const days = $('tokenDays').textContent;
+  const exp  = $('tokenExpireDate').textContent;
+  const msg = `🤖 HyperBot Pro — Token de Teste\n\n🔑 Token: ${tok}\n📅 Válido por: ${days} dias\n⏰ Expira em: ${exp}\n\n⚡ Acesse: Insira na tela de login do HyperBot Pro`;
+  navigator.clipboard?.writeText(msg).then(()=>toast('Mensagem copiada!','Pronta para enviar','success',2500));
+}
+
+function renderTokenList() {
+  const tokens = getStoredTokens();
+  const tbody = $('tokenListBody');
+  const badge = $('tokenCountBadge');
+  if (badge) badge.textContent = tokens.length + ' token' + (tokens.length!==1?'s':'');
+  if (!tokens.length) {
+    tbody.innerHTML = '<tr><td colspan="5" class="lic-empty">Nenhum token gerado ainda</td></tr>';
+    return;
+  }
+  const now = Date.now();
+  tbody.innerHTML = tokens.map((t,i) => {
+    const expired = now > t.expires;
+    const daysLeft = Math.max(0, Math.ceil((t.expires - now) / 86400000));
+    const expDate = new Date(t.expires).toLocaleDateString('pt-BR');
+    const sc = expired ? 'tl-status-exp' : (daysLeft<=3 ? 'tl-status-pend' : 'tl-status-active');
+    const sl = expired ? '❌ Expirado' : (daysLeft<=3 ? `⚠️ ${daysLeft}d` : `✅ ${daysLeft}d`);
+    const shortTok = t.token.length > 28 ? t.token.slice(0,26)+'...' : t.token;
+    return `<tr>
+      <td title="${t.token}" style="cursor:pointer;color:var(--accent)" onclick="navigator.clipboard?.writeText('${t.token}');toast('Copiado!','','success',1500)">${shortTok}</td>
+      <td>${t.days}d</td>
+      <td>${expDate}</td>
+      <td class="${sc}">${sl}</td>
+      <td><button onclick="revokeToken(${i})" style="background:rgba(255,61,87,.1);border:1px solid rgba(255,61,87,.25);color:var(--red);border-radius:4px;padding:3px 8px;font-size:10px;cursor:pointer">Revogar</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function revokeToken(i) {
+  const tokens = getStoredTokens();
+  if (!confirm(`Revogar token "${tokens[i]?.token?.slice(0,20)}..."?`)) return;
+  tokens.splice(i,1);
+  localStorage.setItem(TRIAL_TOKENS_KEY, JSON.stringify(tokens));
+  renderTokenList();
+  toast('Token revogado','','warn',2000);
+}
+
+function clearAllTokens() {
+  if (!confirm('Limpar TODOS os tokens gerados?')) return;
+  localStorage.removeItem(TRIAL_TOKENS_KEY);
+  renderTokenList();
+  toast('Tokens limpos','','info',2000);
+}
+
+// Validate trial token on connect screen
+function onTokenInput(inp) {
+  const val = inp.value.trim().toUpperCase();
+  inp.value = val;
+  const icon = $('tokenCheckIcon');
+  const bar  = $('trialStatusBar');
+  if (!val) { icon.textContent=''; bar.className='trial-status-bar'; bar.textContent=''; return; }
+  if (val.startsWith('HYPER-TRIAL-') && val.length >= 20) {
+    icon.textContent = '🔑';
+    bar.className='trial-status-bar'; bar.textContent=''; // reset while typing
+  } else {
+    icon.textContent = '❌';
+  }
+}
+
+function validateTrialToken() {
+  const token = $('trialToken').value.trim().toUpperCase();
+  const bar   = $('trialStatusBar');
+  if (!token) { bar.className='trial-status-bar error'; bar.textContent='⚠️ Insira um token primeiro'; return; }
+
+  // Check against stored tokens first (local)
+  const tokens = getStoredTokens();
+  const found  = tokens.find(t => t.token === token);
+  const now    = Date.now();
+
+  if (found) {
+    if (now > found.expires) {
+      bar.className='trial-status-bar error';
+      bar.textContent = `❌ Token expirado em ${new Date(found.expires).toLocaleDateString('pt-BR')}`;
+      return;
+    }
+    const daysLeft = Math.ceil((found.expires - now) / 86400000);
+    activateTrial(token, found.expires, daysLeft);
+    bar.className='trial-status-bar success';
+    bar.textContent = `✅ Trial válido! ${daysLeft} dias restantes`;
+    toast('Trial Ativado! 🎉', `${daysLeft} dias de acesso`, 'success', 5000);
+    return;
+  }
+
+  // Try backend validation
+  fetchAPI('/validate_trial','POST',{token}).then(res => {
+    if (res?.valid) {
+      activateTrial(token, res.expires, res.days_left);
+      bar.className='trial-status-bar success';
+      bar.textContent = `✅ Trial válido! ${res.days_left} dias restantes`;
+      toast('Trial Ativado! 🎉', `${res.days_left} dias de acesso`, 'success', 5000);
+    } else {
+      bar.className='trial-status-bar error';
+      bar.textContent = '❌ Token inválido ou não encontrado';
+    }
+  });
+}
+
+function activateTrial(token, expires, daysLeft) {
+  const trialData = { token, expires, daysLeft, activatedAt: Date.now() };
+  localStorage.setItem(TRIAL_KEY, JSON.stringify(trialData));
+  st.trialData = trialData;
+  updateTrialBadge(daysLeft);
+}
+
+function loadSavedTrial() {
+  try {
+    const raw = localStorage.getItem(TRIAL_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    const now = Date.now();
+    if (now > data.expires) {
+      localStorage.removeItem(TRIAL_KEY);
+      return null;
+    }
+    data.daysLeft = Math.ceil((data.expires - now) / 86400000);
+    st.trialData = data;
+    return data;
+  } catch { return null; }
+}
+
+function updateTrialBadge(daysLeft) {
+  const badge = $('trialNavBadge'); if (!badge) return;
+  badge.style.display = '';
+  badge.textContent = `🔑 Trial: ${daysLeft}d`;
+  badge.className = 'trial-badge ' + (daysLeft > 7 ? 'green' : daysLeft > 2 ? 'yellow' : 'red');
+}
+
+function checkTrialStatus() {
+  if (!st.connected) return;
+  const data = st.trialData;
+  if (!data) return;
+
+  const now = Date.now();
+  const msLeft = data.expires - now;
+  const hoursLeft = msLeft / 3600000;
+  const daysLeft = Math.ceil(msLeft / 86400000);
+
+  updateTrialBadge(daysLeft);
+
+  // Update session info card in Licenses tab
+  const info = $('sessionTrialInfo');
+  if (info) {
+    info.innerHTML = `
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px">
+        <div><div style="color:var(--muted);font-size:10px;text-transform:uppercase;margin-bottom:3px">Token</div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--accent)">${data.token?.slice(0,22)}...</div></div>
+        <div><div style="color:var(--muted);font-size:10px;text-transform:uppercase;margin-bottom:3px">Expira em</div>
+          <div style="font-family:var(--font-mono);color:${daysLeft>3?'var(--green)':daysLeft>1?'var(--yellow)':'var(--red)'}">${daysLeft} dia${daysLeft!==1?'s':''}</div></div>
+      </div>`;
+  }
+
+  // Expire banner at < 24h
+  if (msLeft > 0 && hoursLeft < 24) {
+    const h = Math.floor(hoursLeft);
+    const m = Math.floor((hoursLeft - h) * 60);
+    $('trialBannerText').textContent = `⚠️ Seu trial expira em ${h}h ${m}min! Faça upgrade agora para continuar operando.`;
+    $('trialExpireBanner').classList.add('show');
+  }
+
+  // Expiry overlay
+  if (msLeft <= 0) {
+    $('trialExpiredOverlay').classList.add('show');
+    if (st.botRunning) { fetchAPI('/stop','POST',{}); st.botRunning = false; }
+    return;
+  }
+}
+
+// Run trial check every 5 minutes
+setInterval(checkTrialStatus, 300000);
+
+function showUpgradeContact() {
+  toast('📩 Contato para Licença','Entre em contato com o administrador do bot','info',8000);
+}
+
+function forceLogout() {
+  $('trialExpiredOverlay').classList.remove('show');
+  disconnect();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// TRAILING PROTECTION — Ultra-Protector Scalper
+// ══════════════════════════════════════════════════════════════════
+
+const TRAIL_CONFIG = {
+  conservative: { trailPct:0.65, beAt:0.6, beBuffer:0.25, tpMin:1.1, tpMax:2.2 },
+  moderate:     { trailPct:0.50, beAt:0.5, beBuffer:0.25, tpMin:1.3, tpMax:2.4 },
+  aggressive:   { trailPct:0.40, beAt:0.4, beBuffer:0.20, tpMin:1.5, tpMax:2.8 },
+};
+
+function getTrailCfg() { return TRAIL_CONFIG[cfg.riskMode] || TRAIL_CONFIG.moderate; }
+
+function updatePositionTrailing(pos, currentPrice) {
+  // TRAILING PROTECTION — Real-time update of position trailing stop
+  const tc = getTrailCfg();
+  const isLong = pos.direction === 'LONG';
+  const entry = pos.entryPrice;
+  const mult  = isLong ? 1 : -1;
+
+  // PnL percent vs entry
+  const pnlPct = ((currentPrice - entry) / entry) * 100 * mult;
+  const pnlUsd = pos.sizeUsd * (currentPrice - entry) / entry * mult * pos.leverage;
+  pos.pnl    = round(pnlUsd, 2);
+  pos.pnlPct = round(pnlPct, 3);
+  pos.currentPrice = currentPrice;
+
+  // Break-even trigger: when pnl% >= beAt threshold
+  if (!pos.breakeven && pnlPct >= tc.beAt) {
+    const beSL = isLong
+      ? entry * (1 + tc.beBuffer / 100)
+      : entry * (1 - tc.beBuffer / 100);
+    if ((isLong && beSL > pos.stopLoss) || (!isLong && beSL < pos.stopLoss)) {
+      pos.stopLoss = round(beSL, 8);
+      pos.breakeven = true;
+      addLog(`🛡️ BE ativado: ${pos.coin} | SL → $${fmtP(beSL)} (+${tc.beBuffer}% garantido)`, 'success');
+      toast(`🛡️ Break-Even ${pos.coin}`, `SL → $${fmtP(beSL)}`, 'success', 3500);
+    }
+  }
+
+  // Dynamic trailing: after breakeven, trail every 0.25% favorable move
+  if (pos.breakeven && pnlPct > tc.beAt) {
+    const trailStop = isLong
+      ? currentPrice * (1 - tc.trailPct / 100)
+      : currentPrice * (1 + tc.trailPct / 100);
+    if ((isLong && trailStop > pos.stopLoss) || (!isLong && trailStop < pos.stopLoss)) {
+      const wasTrailing = pos.trailing;
+      pos.stopLoss = round(trailStop, 8);
+      pos.trailing = true;
+      if (!wasTrailing || Math.abs(trailStop - pos._lastLoggedSL||0) / entry > 0.001) {
+        addLog(`🔄 Trailing: ${pos.coin} | SL → $${fmtP(trailStop)}`, 'info');
+        pos._lastLoggedSL = trailStop;
+      }
+    }
+  }
+
+  // Auto-close: TP hit
+  if ((isLong && currentPrice >= pos.takeProfit) || (!isLong && currentPrice <= pos.takeProfit)) {
+    return { close:true, reason:'Take Profit ✅', pnl: pnlUsd };
+  }
+
+  // Auto-close: SL hit
+  if ((isLong && currentPrice <= pos.stopLoss) || (!isLong && currentPrice >= pos.stopLoss)) {
+    const isProtected = pos.breakeven || pos.trailing;
+    return { close:true, reason: isProtected ? 'SL Trailing 🛡️' : 'Stop Loss', pnl: pnlUsd };
+  }
+
+  return { close:false };
+}
+
+// ══════════════════════════════════════════════════════════════════
+// ENHANCED POSITION UPDATE — runs every 3s in sim mode
+// ══════════════════════════════════════════════════════════════════
+function updateSimPositions() {
+  if (!st.botRunning || st.backendOK) return;
+  const toClose = [];
+  Object.values(st.simPositions).forEach(pos => {
+    const cp = parseFloat(st.lastPrices[pos.coin] || pos.currentPrice || pos.entryPrice);
+    if (!cp) return;
+    const result = updatePositionTrailing(pos, cp);
+    if (result.close) {
+      toClose.push({ pos, reason: result.reason, pnl: result.pnl });
+    }
+  });
+  toClose.forEach(({ pos, reason, pnl }) => {
+    const cp = pos.currentPrice || pos.entryPrice;
+    st.simBalance += pnl;
+    addHistoryEntry({
+      ...pos, closePrice:round(cp,8), pnl:round(pnl,2),
+      pnlPct:round(pnl/pos.sizeUsd*100,2),
+      reason, date:new Date().toLocaleDateString('pt-BR'),
+      closeTime:new Date().toLocaleTimeString('pt-BR',{hour12:false}),
+    });
+    delete st.simPositions[pos.coin];
+    updateStats({balance:st.simBalance});
+    const isWin = pnl > 0;
+    addLog(`🔒 [AUTO] ${pos.coin} fechado | ${reason} | PnL: ${fmtUSD(pnl)}`, isWin?'success':'error');
+    toast(`${reason} — ${pos.coin}`, fmtUSD(pnl), isWin?'success':'error', 4000);
+  });
+  if (Object.keys(st.simPositions).length > 0) {
+    renderPositions(Object.values(st.simPositions));
+  }
+}
+
+// Hook position updater into existing price tick interval (every 3s via fallbackPricePoll)
+const _origUpdateTicker = updateTicker;
+// Override updateTicker to also run sim position updates
+// Done via setInterval below since we can't override easily
+
+setInterval(updateSimPositions, 3000);
+
+// ══════════════════════════════════════════════════════════════════
+// ENHANCED openSimPos — with proper trailing params
+// ══════════════════════════════════════════════════════════════════
+
+// Override openSimPos to use trail config
+const _origOpenSimPos = openSimPos;
+function openSimPos(sig) {
+  const tc = getTrailCfg();
+  const cap = st.capital > 0 ? st.capital / st.maxSlots : 200;
+  const entry = sig.entryPrice;
+  const isLong = sig.direction === 'LONG';
+
+  // TP based on trail config
+  const tpPct = tc.tpMin + Math.random() * (tc.tpMax - tc.tpMin);
+  const tp = isLong ? entry * (1 + tpPct/100) : entry * (1 - tpPct/100);
+  // Tight initial SL
+  const slPct = tc.trailPct + 0.1;
+  const sl = isLong ? entry * (1 - slPct/100) : entry * (1 + slPct/100);
+
+  st.simPositions[sig.coin] = {
+    coin:sig.coin, symbol:sig.symbol, direction:sig.direction,
+    entryPrice:entry, currentPrice:entry,
+    stopLoss:round(sl,8), takeProfit:round(tp,8),
+    stopPct:round(slPct,3),
+    sizeUsd:round(cap,2), size:round(cap/entry,6),
+    leverage:sig.leverage, pnl:0, pnlPct:0,
+    breakeven:false, trailing:false, real:false,
+    openTime:new Date().toLocaleTimeString('pt-BR',{hour12:false}),
+    date:new Date().toLocaleDateString('pt-BR'),
+    hlLink:`https://app.hyperliquid.xyz/trade/${sig.coin}`,
+    reasons:sig.reasons,
+    _lastLoggedSL:sl,
+  };
+  addLog(`📤 [SIM] ${sig.direction} ${sig.coin} | $${round(cap,0)} @ ${sig.leverage}x | TP:$${fmtP(tp)} SL:$${fmtP(sl)} (trail ${tc.trailPct}%)`, 'success');
+  toast(`${sig.direction} ${sig.coin}`, `$${round(cap,0)} @ ${sig.leverage}x | Trail: ${tc.trailPct}%`, 'success', 3000);
+}
+
+// ══════════════════════════════════════════════════════════════════
+// LICENSES TAB — SHOWTTAB EXTENSION
+// ══════════════════════════════════════════════════════════════════
+const _origShowTab = showTab;
+function showTab(name) {
+  document.querySelectorAll('.tab-page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  $('tab-'+name)?.classList.add('active');
+  $('tabBtn-'+name)?.classList.add('active');
+  if (name==='history') fetchHistory();
+  if (name==='news') renderNews();
+  if (name==='licenses') { renderTokenList(); checkTrialStatus(); }
+}
+
+// ══════════════════════════════════════════════════════════════════
+// TRIAL CONNECT SCREEN EXTENSION
+// ══════════════════════════════════════════════════════════════════
+const _origEnterDashboard = enterDashboard;
+function enterDashboard(addr, pk, balance, backendOK) {
+  _origEnterDashboard(addr, pk, balance, backendOK);
+  // Load and display any saved trial
+  const trial = loadSavedTrial();
+  if (trial) {
+    updateTrialBadge(trial.daysLeft);
+    checkTrialStatus();
+    addLog(`🔑 Trial ativo: ${trial.daysLeft} dias restantes`, 'success');
+  }
+  // Init license tab
+  renderTokenList();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// DISCONNECT EXTENSION — clear trial banner too
+// ══════════════════════════════════════════════════════════════════
+const _origDisconnect = disconnect;
+function disconnect() {
+  $('trialExpireBanner')?.classList.remove('show');
+  $('trialExpiredOverlay')?.classList.remove('show');
+  const nb = $('trialNavBadge'); if(nb) nb.style.display='none';
+  const sb = $('sessionTrialInfo'); if(sb) sb.innerHTML='<div style="font-size:12px;color:var(--muted);text-align:center">Sem trial ativo nesta sessão</div>';
+  _origDisconnect();
+}
+
+// ══════════════════════════════════════════════════════════════════
+// INIT — load trial tokens list on page load
+// ══════════════════════════════════════════════════════════════════
+window.addEventListener('load', () => {
+  checkWalletsInstalled();
+  renderTokenList();
+});
+
+/*
+═══════════════════════════════════════════════════════════════════
+BACKEND FLASK — Endpoints necessários para o server.py
+═══════════════════════════════════════════════════════════════════
+
+import json, time, os, hashlib, secrets
+from flask import Flask, request, jsonify
+
+TRIALS_FILE = 'trials.json'
+
+def load_trials():
+    try:
+        with open(TRIALS_FILE) as f: return json.load(f)
+    except: return {}
+
+def save_trials(d):
+    with open(TRIALS_FILE,'w') as f: json.dump(d,f,indent=2)
+
+@app.route('/api/generate_trial', methods=['POST'])
+def generate_trial():
+    data = request.json
+    days = int(data.get('days', 7))
+    if days not in [7, 10, 30]: return jsonify({'error':'invalid days'}), 400
+    token_id = secrets.token_hex(8).upper()
+    suffix   = secrets.token_hex(4).upper()
+    token    = f"HYPER-TRIAL-{token_id}-{suffix}{days:02d}D"
+    expires  = int(time.time()) + days * 86400
+    trials   = load_trials()
+    trials[token] = {'days':days,'created':int(time.time()),'expires':expires,'used':False}
+    save_trials(trials)
+    return jsonify({'token':token,'expires':expires,'days':days})
+
+@app.route('/api/validate_trial', methods=['POST'])
+def validate_trial():
+    data  = request.json
+    token = data.get('token','').strip().upper()
+    trials = load_trials()
+    if token not in trials:
+        return jsonify({'valid':False,'error':'Token not found'})
+    t = trials[token]
+    now = int(time.time())
+    if now > t['expires']:
+        return jsonify({'valid':False,'error':'Token expired'})
+    days_left = max(0, int((t['expires'] - now) / 86400))
+    trials[token]['used'] = True
+    save_trials(trials)
+    return jsonify({'valid':True,'days_left':days_left,'expires':t['expires'],'days':t['days']})
+
+@app.route('/api/active_trials', methods=['GET'])
+def active_trials():
+    trials = load_trials()
+    now = int(time.time())
+    result = [{'token':k,'days':v['days'],'expires':v['expires'],
+               'days_left':max(0,int((v['expires']-now)/86400)),
+               'used':v['used'],'active':now<=v['expires']}
+              for k,v in trials.items()]
+    return jsonify({'trials':result,'count':len(result)})
+
+═══════════════════════════════════════════════════════════════════
+*/
 setInterval(async ()=>{
   if (!st.backendOK||!st.connected) return;
   const d=await fetchAPI('/pnl_history');
